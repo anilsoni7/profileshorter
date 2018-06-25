@@ -224,23 +224,24 @@ def main():
             31 is the index of position.... in file 2
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("-a", "--attribute", help="slect attributes")
-    parser.add_argument("-f", "--file", type=list,
+    parser.add_argument("-a", "--attribute",type=tuple, help="attributes location")
+    parser.add_argument("-f", "--file", type=tuple,
                         help="file name or directory followed by filename")
-    parser.add_argument("-v", "--values", type=list, help="values to seprate  eg 1,2,3")
+    parser.add_argument("-v", "--values", type=tuple, help="values to seprate  eg 1,2,3")
     args = parser.parse_args()
-    args.file = [r"Interested in Training 2019.xlsx",
-                 r"Interested in Placement 2019.xlsx"]
+    
     print(args.file)
+    print(args.attribute)
     time.sleep(2)
 
-    if args.file is None:
+    if args.file is None or args.attribute is None:
         print("""please include all attributes\n
-             python3 seprator.py -a <attribute_name> -f <file_name> -v <values>
+             python3 seprator.py -a <attribute_name> -f <file_name> -v [values] 
             """)
         return
-    datamanager = DataManager(file_name=list(args.file), search_index=[0, 1],
-                              position_location=[7, 31])
+    args.values = args.values or (0,1)
+    datamanager = DataManager(file_name=tuple(args.file), search_index=arg.values,
+                              position_location=tuple(args.attribute))
     datamanager.run()
 
     del datamanager
