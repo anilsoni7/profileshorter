@@ -1,20 +1,21 @@
 upload requirment.txt containing all requirments
 
-remove unused classes
+<strike>remove unused classes</strike> # done
 
 remove unnecessary comments
 
 group import order
 
-proper import of modules (eg. import pandas as pd)
+<strike>proper import of modules (eg. import pandas as pd)</strike> # done
 
-include logging facility
+<strike>implement pep-8</strike> # done
+
+implement logging facility
+
+implement test
+
+implement Error Handling
 
 improve readability of code
 
-implement pep-8
-
-include test 
-
 improve memory footprint
-
