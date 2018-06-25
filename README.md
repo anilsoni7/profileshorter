@@ -1,4 +1,4 @@
-<strike>upload requirment.txt containing all requirments<strike>
+<strike>upload requirment.txt containing all requirments</strike>
 
 <strike>remove unused classes</strike>
 
