@@ -1,14 +1,14 @@
-upload requirment.txt containing all requirments
+<strike>upload requirment.txt containing all requirments<strike>
 
-<strike>remove unused classes</strike> # done
+<strike>remove unused classes</strike>
 
 remove unnecessary comments
 
 group import order
 
-<strike>proper import of modules (eg. import pandas as pd)</strike> # done
+<strike>proper import of modules (eg. import pandas as pd)</strike>
 
-<strike>implement pep-8</strike> # done
+<strike>implement pep-8</strike>
 
 implement logging facility
 
