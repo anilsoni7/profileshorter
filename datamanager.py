@@ -43,6 +43,45 @@ class DataManager:
         self._search_index = search_index
         self._student_data = collections.namedtuple('student', ['enrollment', 'index', 'files'])
 
+    @staticmethod
+    def genrate_directory_names(_file_name):
+        """
+        This is static method & only applies for our college problem
+        implement for genral use
+        genrate directory names based on the file given input
+        """
+        print("Genrating directory names ")
+        for index, name in enumerate(_file_name):
+            name = name.split("/")[-1]
+            name = name.replace("Interested in ", "")
+            name = name.replace(".xlsx", "")
+            _file_name[index] = name
+
+    @staticmethod
+    def create_directory(_file_name):
+        """
+        create directory under current directory
+        to store data
+        """
+        print("Creating diretory if not exsist")
+        for name in _file_name:
+            try:
+                os.mkdir(name)
+            except FileExistsError:
+                pass
+
+    def write_to_file(self, sheet_index, student_index, row, file_index, file_obj):
+        """
+        write a single row to file
+        1 at a time
+        eg. Academic with sheet_index = 0
+            placement / Training with sheet_index = 1
+        """
+        for col_index, data in \
+                        enumerate(self._file_content[self._file_name[file_index] + \
+                                                     str(sheet_index)].loc(0)[student_index]):
+            file_obj.write(row, col_index, str(data))
+
     def read_files(self):
         """
         Read file content and store them in memory
@@ -91,33 +130,6 @@ class DataManager:
         except KeyboardInterrupt:
             print("by user")
 
-    @staticmethod
-    def genrate_directory_names(_file_name):
-        """
-        This is static method & only applies for our college problem
-        implement for genral use
-        genrate directory names based on the file given input
-        """
-        print("Genrating directory names ")
-        for index, name in enumerate(_file_name):
-            name = name.split("/")[-1]
-            name = name.replace("Interested in ", "")
-            name = name.replace(".xlsx", "")
-            _file_name[index] = name
-
-    @staticmethod
-    def create_directory(_file_name):
-        """
-        create directory under current directory
-        to store data
-        """
-        print("Creating diretory if not exsist")
-        for name in _file_name:
-            try:
-                os.mkdir(name)
-            except FileExistsError:
-                pass
-
     def write_files(self):
         """
         Use the index and store that according to category
@@ -142,32 +154,23 @@ class DataManager:
             row_placement = 1
             for student in students:
                 if student.files == 0:# training
-                    for col_index, data in \
-                        enumerate(self._file_content[self._file_name[student.files] + \
-                                                     "0"].loc(0)[student.index]):
-                        t_sheets[0].write(row_training, col_index, str(data))
+                    self.write_to_file("0", student.index, row_training, student.files, t_sheets[0])
 
-                    for col_index, data in \
-                        enumerate(self._file_content[self._file_name[student.files] + \
-                                                     "1"].loc(0)[student.index]):
-                        t_sheets[1].write(row_training, col_index, str(data))
+                    self.write_to_file("1", student.index, row_training, student.files, t_sheets[1])
 
                     row_training += 1
                 else: #placement
-                    for col_index, data in \
-                        enumerate(self._file_content[self._file_name[student.files] + \
-                                                     "0"].loc(0)[student.index]):
-                        p_sheets[0].write(row_placement, col_index, str(data))
+                    self.write_to_file("0", student.index, row_placement,
+                                       student.files, p_sheets[0])
 
-                    for col_index, data in \
-                        enumerate(self._file_content[self._file_name[student.files] + \
-                                                     "1"].loc(0)[student.index]):
-                        p_sheets[1].write(row_placement, col_index, str(data))
+                    self.write_to_file("1", student.index, row_placement,
+                                       student.files, p_sheets[1])
 
                     row_placement += 1
 
             xlfilename = xlfilename.replace("/", "-")
             xlfilename = xlfilename.replace(" ", "-")
+
             if row_placement > 1:
                 print(f"{xlfilename}.xlsx in {_file_name[1]}{os.sep}")
                 placement.save(f"{_file_name[1]}{os.sep}{xlfilename}.xls")
