@@ -7,7 +7,7 @@ try:
     import os
     import sys
     import time
-    
+
     import xlwt
     import pandas as pd
 except ImportError:
@@ -16,7 +16,7 @@ except ImportError:
     import os
     import sys
     import time
-    
+
     import xlwt
     import pandas as pd
 
@@ -59,17 +59,12 @@ class DataManager:
                                                    pd.read_excel(_filename,
                                                                  sheet_name=_sheet_index)
                                                   )
-            #print(self._file_content)
         except KeyboardInterrupt:
             print("by user")
-            #raise State.ABORT_BY_USER
         except FileNotFoundError:
             assert self._file_name
             print("file not found {}".format(self._file_name))
             sys.exit()
-        #except:
-        #   print("by system")
-        #   raise State.ABORT_BY_SYSTEM
 
     def build_index(self):
         """
@@ -93,11 +88,9 @@ class DataManager:
                                                                          files=p_i)
                                                      )#data[1] consist of enrolment
                 p_i += 1
-            #with open('index','w+') as f:
-            #   json.dump(self._index, f)
         except KeyboardInterrupt:
             print("by user")
-            #raise State.ABORT_BY_USER
+
     @staticmethod
     def genrate_directory_names(_file_name):
         """
@@ -193,7 +186,6 @@ class DataManager:
         Main method for DataManager class this try to perform all
         given method in step
         """
-        #try:
         start = time.time()
         self.read_files()
         self.build_index()
@@ -207,8 +199,6 @@ class DataManager:
                    {finish / 3600} seconds """)
         else:
             print(f"\n Total time taken to complete job {int(finish)} seconds ")
-        #except :
-        #print("There was some error")
 
     def __del__(self):
         del self._file_name
@@ -251,5 +241,6 @@ def main():
     datamanager.run()
 
     del datamanager
-if __name__ == "__main__" :
+
+if __name__ == "__main__":
     main()
