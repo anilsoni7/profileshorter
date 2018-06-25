@@ -2,7 +2,7 @@
 
 <strike>remove unused classes</strike>
 
-remove unnecessary comments
+<strike>remove unnecessary comments</strike>
 
 group import order
 
