@@ -19,3 +19,5 @@ implement Error Handling
 improve readability of code
 
 improve memory footprint
+
+implement method to add header to each file
